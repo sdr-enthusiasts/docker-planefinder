@@ -24,6 +24,8 @@ RUN set -x && \
     touch /run/pfclient.pid && \
     chown nobody /run/pfclient.pid && \
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
+    apt-get clean -y && \
+    rm -rf /tmp/* /src /var/lib/apt/lists/* && \
     echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION
 
 COPY etc/ /etc/
