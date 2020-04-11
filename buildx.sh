@@ -19,4 +19,4 @@ docker pull "${REPO}/${IMAGE}:latest"
 VERSION=$(docker run --rm --entrypoint cat ${REPO}/${IMAGE}:latest /VERSION | grep pfclient | cut -d " " -f 2)
 
 # Build & push version-specific
-docker buildx build -t "${REPO}/${IMAGE}:-${VERSION}" --compress --push --platform "${PLATFORMS}" .
+docker buildx build -t "${REPO}/${IMAGE}:${VERSION}" --compress --push --platform "${PLATFORMS}" .
