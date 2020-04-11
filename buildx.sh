@@ -16,7 +16,7 @@ docker buildx build -t "${REPO}/${IMAGE}:latest" --compress --push --platform "$
 
 # Get piaware version from latest
 docker pull "${REPO}/${IMAGE}:latest"
-VERSION=$(docker run --rm pftest:latest cat /VERSION | grep pfclient | cut -d " " -f 2)
+VERSION=$(docker run --rm ${REPO}/${IMAGE}:latest cat /VERSION | grep pfclient | cut -d " " -f 2)
 
 # Build & push version-specific
 docker buildx build -t "${REPO}/${IMAGE}:-${VERSION}" --compress --push --platform "${PLATFORMS}" .
