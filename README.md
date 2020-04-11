@@ -92,7 +92,7 @@ docker run \
 version: '2.0'
 
 services:
-    pfclient:
+  pfclient:
     image: mikenye/planefinder:latest
     tty: true
     container_name: pfclient
@@ -143,8 +143,7 @@ services:
       - --quiet
       - --write-json=/var/run/readsb
 
-  services:
-    pfclient:
+  pfclient:
     image: mikenye/planefinder:latest
     tty: true
     container_name: pfclient
