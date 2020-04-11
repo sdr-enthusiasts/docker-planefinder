@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bash
+#shellcheck shell=bash
+
+s6-setuidgid nobody /usr/bin/pfclient \
+    --connection_type=1 \
+    --address="${BEASTHOST}" \
+    --port="${BEASTPORT}" \
+    --data_format=1 \
+    --sharecode="${SHARECODE}" \
+    --lat="${LAT}" \
+    --lon="${LONG}" \
+    --pid_file=/run/pfclient.pid \
+    --config_path=/config/pfclient-config.json \
+    --log_path=/var/log/pfclient \
+    2>&1 | awk -W Interactive '{print "[pfclient_daemon] " $0}'
