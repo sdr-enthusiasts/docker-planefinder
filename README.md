@@ -17,7 +17,6 @@ For more information on what `pfclient` is, see here: <https://planefinder.net/s
 Currently, this image should pull and run on the following architectures:
 
 * `amd64`: Linux x86-64
-* `arm32v6`: ARMv6 32-bit (Pi Zero)
 * `arm32v7`: ARMv7 32-bit (Odroid HC1/HC2/XU4, RPi 2/3)
 * `arm64`: ARMv8 64-bit (RPi 4 64-bit OSes)
 
