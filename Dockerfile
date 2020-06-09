@@ -11,6 +11,7 @@ RUN set -x && \
         bash \
         ca-certificates \
         curl \
+        file \
         libc6 \
         lsb-base \
         procps \
@@ -27,6 +28,14 @@ RUN set -x && \
     apt-get clean -y && \
     rm -rf /tmp/* /src /var/lib/apt/lists/* && \
     echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION
+    apt-get remove -y \
+        curl \
+        file \
+        libc6 \
+        && \
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/* /src /tmp/*
 
 COPY etc/ /etc/
 
