@@ -26,12 +26,6 @@ RUN set -x && \
     chown nobody /run/pfclient.pid && \
     curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
-    apt-get remove -y \
-        curl \
-        file \
-        libc6 \
-        && \
-    apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /src /tmp/*
 
