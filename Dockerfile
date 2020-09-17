@@ -9,6 +9,7 @@ RUN set -x && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
         bash \
+        bc \
         ca-certificates \
         curl \
         file \
@@ -29,8 +30,11 @@ RUN set -x && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /src /tmp/*
 
-COPY etc/ /etc/
+COPY rootfs/ /
 
 ENTRYPOINT [ "/init" ]
 
 EXPOSE 30053/tcp 30054/tcp
+
+# Add healthcheck
+HEALTHCHECK --start-period=300s --interval=300s  CMD /healthcheck.sh
