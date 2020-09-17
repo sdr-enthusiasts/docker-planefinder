@@ -18,11 +18,11 @@ LASTLOG_NUMBER_UPDATES=$(echo "$LASTLOG_UPDATES_SENT" | grep -oP "Successfully s
 SUCCESSFUL_SENT_UPDATES=$(echo "($TIMESTAMP_NOW - $LASTLOG_TIMESTAMP) < $CHECK_PERIOD_SECONDS" | bc)
 
 # check to make sure we've sent updates recently
-if [[ "$SUCCESSFUL_SENT_UPDATES" -ne 1 ]; then
+if [[ "$SUCCESSFUL_SENT_UPDATES" -ne 1 ]]; then
     echo "No updates sent in past $CHECK_PERIOD_SECONDS seconds. UNHEALTHY"
     EXITCODE=1
 else
-    if [ "$LASTLOG_NUMBER_UPDATES" -lt 1 ]; then
+    if [[ "$LASTLOG_NUMBER_UPDATES" -lt 1 ]]; then
         echo "No updates sent in past $CHECK_PERIOD_SECONDS seconds. UNHEALTHY"
         EXITCODE=1
     else
