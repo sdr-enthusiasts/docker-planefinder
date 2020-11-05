@@ -43,7 +43,9 @@ fi
 echo "System architecture is: ${PFARCH}"
 
 # Get link to pfclient download
-PFCLIENTURL=$(curl "https://planefinder.net/sharing/client" | grep -oE "$PFCLIENTREGEX")
+USERAGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:81.0) Gecko/20100101 Firefox/81.0'
+curl -c /tmp/cookiejar -A "$USERAGENT" --location "https://planefinder.net/"
+PFCLIENTURL=$(curl --location -b /tmp/cookiejar -A "$USERAGENT" "https://planefinder.net/coverage/client" | grep -oE "$PFCLIENTREGEX")
 echo "pfclient download URL is: ${PFCLIENTURL}"
 
 # Download pfclient
