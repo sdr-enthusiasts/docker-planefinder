@@ -32,10 +32,12 @@ fi
 # Determine regex to use
 if [ "${PFARCH}" = "armhf" ]
 then
-    PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_armhf\.deb"
+    # PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_armhf\.deb"
+    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
 elif [ "${PFARCH}" = "i386" ]
 then
-    PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_i386\.deb"
+    # PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_i386\.deb"
+    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"
 else
     echo "Unsupported pfclient architecture: ${ARCH}"
     exit 0
@@ -44,12 +46,12 @@ echo "System architecture is: ${PFARCH}"
 
 # Get link to pfclient download
 USERAGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:81.0) Gecko/20100101 Firefox/81.0'
-curl -c /tmp/cookiejar -A "$USERAGENT" --location "https://planefinder.net/"
-PFCLIENTURL=$(curl --location -b /tmp/cookiejar -A "$USERAGENT" "https://planefinder.net/coverage/client" | grep -oE "$PFCLIENTREGEX")
+# curl -c /tmp/cookiejar -A "$USERAGENT" --location "https://planefinder.net/" > /dev/null 2>&1
+# PFCLIENTURL=$(curl --location -b /tmp/cookiejar -A "$USERAGENT" "https://planefinder.net/coverage/client" | grep -oE "$PFCLIENTREGEX")
 echo "pfclient download URL is: ${PFCLIENTURL}"
 
 # Download pfclient
-curl -o /tmp/pfclient.deb "${PFCLIENTURL}" 
+curl -A "$USERAGENT" -o /tmp/pfclient.deb "${PFCLIENTURL}" 
 
 # Install pfclient
 dpkg --install /tmp/pfclient.deb
