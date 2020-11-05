@@ -33,11 +33,11 @@ fi
 if [ "${PFARCH}" = "armhf" ]
 then
     # PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_armhf\.deb"
-    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
+    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"
 elif [ "${PFARCH}" = "i386" ]
 then
     # PFCLIENTREGEX="http:\/\/client\.planefinder\.net\/pfclient_(\w)(\.\w)*_i386\.deb"
-    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"
+    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
 else
     echo "Unsupported pfclient architecture: ${ARCH}"
     exit 0
