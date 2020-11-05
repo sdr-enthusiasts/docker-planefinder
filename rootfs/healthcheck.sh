@@ -12,7 +12,7 @@ CHECK_PERIOD_SECONDS=300
 
 # Pull info from logs and perform calculations
 TIMESTAMP_NOW=$(date --utc +%s.%N)
-LASTLOG_UPDATES_SENT=$(grep -P "Successfully sent \d+ aircraft updates across \d+ packets" "$PFCLIENT_LOG_FILE" | tail -1 | tr -s " ")
+LASTLOG_UPDATES_SENT=$(grep --binary-files=text -P "Successfully sent \d+ aircraft updates across \d+ packets" "$PFCLIENT_LOG_FILE" | tail -1 | tr -s " ")
 LASTLOG_TIMESTAMP=$(date --utc --date="$(echo "$LASTLOG_UPDATES_SENT" | cut -d ' ' -f 1,2)" +%s.%N)
 LASTLOG_NUMBER_UPDATES=$(echo "$LASTLOG_UPDATES_SENT" | grep -oP "Successfully sent \K\d+")
 SUCCESSFUL_SENT_UPDATES=$(echo "($TIMESTAMP_NOW - $LASTLOG_TIMESTAMP) < $CHECK_PERIOD_SECONDS" | bc)
