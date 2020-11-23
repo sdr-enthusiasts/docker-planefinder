@@ -26,7 +26,7 @@ else
         echo "No updates sent in past $CHECK_PERIOD_SECONDS seconds. UNHEALTHY"
         EXITCODE=1
     else
-        echo "$(echo $LASTLOG_UPDATES_SENT | cut -d ']' -f 2 | tr -s ' ' | cut -d ' ' -f 2-). HEALTHY"
+        echo "$(echo "$LASTLOG_UPDATES_SENT" | cut -d ']' -f 2 | tr -s ' ' | cut -d ' ' -f 2-). HEALTHY"
     fi
 fi
 

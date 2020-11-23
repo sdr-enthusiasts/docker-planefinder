@@ -57,5 +57,5 @@ curl -A "$USERAGENT" -o /tmp/pfclient.deb "${PFCLIENTURL}"
 dpkg --install /tmp/pfclient.deb
 
 # Kill running pfclient
-kill -9 $(cat /run/pfclient.pid)
+kill -9 "$(cat /run/pfclient.pid)"
 rm /run/pfclient.pid
