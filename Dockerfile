@@ -5,6 +5,8 @@ ENV BEASTPORT=30005 \
 
 COPY scripts/ /scripts/
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN set -x && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
