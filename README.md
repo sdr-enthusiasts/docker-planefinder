@@ -1,6 +1,6 @@
 # mikenye/planefinder
 
-Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [mikenye/readsb](https://hub.docker.com/repository/docker/mikenye/readsb) or [mikenye/piaware](https://hub.docker.com/repository/docker/mikenye/piaware). Builds and runs on `x86_64`, `arm64` and `arm32v7` (see below).
+Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [mikenye/readsb-protobuf](https://hub.docker.com/repository/docker/mikenye/readsb-protobuf). Builds and runs on `x86_64`, `386`, `arm64` and `arm32v7` (see below).
 
 `pfclient` pulls ModeS/BEAST information from a host or container providing ModeS/BEAST data, and sends data to PlaneFinder.
 
@@ -11,14 +11,6 @@ For more information on what `pfclient` is, see here: <https://planefinder.net/s
 * `latest` (`master` branch, `Dockerfile`)
 * Version and architecture specific tags available
 * `development` (`dev` branch, `Dockerfile`, not recommended for production)
-
-## Multi Architecture Support
-
-Currently, this image should pull and run on the following architectures:
-
-* `amd64`: Linux x86-64
-* `arm32v7`: ARMv7 32-bit (Odroid HC1/HC2/XU4, RPi 2/3)
-* `arm64`: ARMv8 64-bit (RPi 4 64-bit OSes)
 
 ## Obtaining a PlaneFinder Share Code
 
