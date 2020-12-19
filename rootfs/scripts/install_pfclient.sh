@@ -70,4 +70,4 @@ dpkg --install /tmp/pfclient.deb
 
 # Kill running pfclient
 kill -9 "$(cat /run/pfclient.pid)"
-rm /run/pfclient.pid
+rm /run/pfclient.pid > /dev/null 2>&1 || true
