@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #shellcheck shell=bash
 
-set -x
+set -xe
 
 # Get arch
 # Make sure `file` (libmagic) is available
@@ -25,6 +25,9 @@ fi
 # /usr/bin/file: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-x86_64.so.1, stripped
 # /usr/bin/file: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=6b0b86f64e36f977d088b3e7046f70a586dd60e7, stripped
 if echo "${FILEOUTPUT}" | grep "x86-64" > /dev/null; then
+  dpkg --add-architecture i386
+  apt-get update
+  apt-get install --no-install-recommends -y libc6:i386
   PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
 fi
 
@@ -45,6 +48,9 @@ if echo "${FILEOUTPUT}" | grep "ARM" > /dev/null; then
   # /usr/bin/file: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-aarch64.so.1, stripped
   # /usr/bin/file: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, BuildID[sha1]=a8d6092fd49d8ec9e367ac9d451b3f55c7ae7a78, stripped
   if echo "${FILEOUTPUT}" | grep "aarch64" > /dev/null; then
+    dpkg --add-architecture armhf
+    apt-get update		
+    apt-get install --no-install-recommends -y libc6:armhf
     PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"    
   fi
 
