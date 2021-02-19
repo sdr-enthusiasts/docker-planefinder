@@ -30,3 +30,8 @@ if [ -z "${TZ}" ]; then
 else
   ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" >/etc/timezone
 fi
+
+# Make directories
+
+mkdir -p /var/log/pfclient
+chown -R nobody:nobody /var/log/pfclient
