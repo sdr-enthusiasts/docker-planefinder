@@ -34,4 +34,4 @@ fi
 # Make directories
 
 mkdir -p /var/log/pfclient
-chown -R nobody:nobody /var/log/pfclient
+chown -R nobody /var/log/pfclient
