@@ -13,17 +13,19 @@ RUN set -x && \
     # Deps for healthchecks
     KEPT_PACKAGES+=(bc) && \
     TEMP_PACKAGES+=(git) && \
+    KEPT_PACKAGES+=(jq) && \
     KEPT_PACKAGES+=(net-tools) && \
     KEPT_PACKAGES+=(procps) && \
     # Deps for s6-overlay & pfclient install
-    TEMP_PACKAGES+=(curl) && \
     TEMP_PACKAGES+=(file) && \
     TEMP_PACKAGES+=(gnupg) && \
     # Deps for pfclient
     KEPT_PACKAGES+=(ca-certificates) && \
     KEPT_PACKAGES+=(libc6) && \
     KEPT_PACKAGES+=(lsb-base) && \
-    # Install packages.
+    # Deps for s6-overlay, pfclient install & healthchecks
+    KEPT_PACKAGES+=(curl) && \
+    # Install packages
     apt-get update && \
     apt-get install -y --no-install-recommends \
         ${KEPT_PACKAGES[@]} \
