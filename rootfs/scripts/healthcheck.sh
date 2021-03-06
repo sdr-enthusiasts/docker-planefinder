@@ -4,9 +4,6 @@
 # shellcheck disable=SC1091
 source /opt/healthchecks-framework/healthchecks.sh
 
-# Get latest log file
-PFCLIENT_LOG_FILE=$(find /var/log/pfclient -type f -iname "pfclient-log_*.log" | sort | tail -1)
-
 EXITCODE=0
 
 # Ensure connection to beasthost
