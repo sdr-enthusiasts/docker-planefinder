@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Import healthchecks-framework
+source /opt/healthchecks-framework/healthchecks.sh
+
 set -e
 
 # Get latest log file
@@ -28,6 +31,11 @@ else
     else
         echo "$(echo "$LASTLOG_UPDATES_SENT" | cut -d ']' -f 2 | tr -s ' ' | cut -d ' ' -f 2-). HEALTHY"
     fi
+fi
+
+# Ensure connection to beasthost
+if ! check_tcp4_connection_established ANY ANY "$(get_ipv4 "$BEASTHOST")" "$BEASTPORT"; then
+  EXITCODE=1
 fi
 
 exit $EXITCODE
