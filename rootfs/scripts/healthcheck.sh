@@ -4,8 +4,6 @@
 # shellcheck disable=SC1091
 source /opt/healthchecks-framework/healthchecks.sh
 
-set -e
-
 # Get latest log file
 PFCLIENT_LOG_FILE=$(find /var/log/pfclient -type f -iname "pfclient-log_*.log" | sort | tail -1)
 
