@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Import healthchecks-framework
+# shellcheck disable=SC1091
 source /opt/healthchecks-framework/healthchecks.sh
 
 set -e
