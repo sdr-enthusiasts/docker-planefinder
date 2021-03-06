@@ -11,7 +11,6 @@ RUN set -x && \
     TEMP_PACKAGES=() && \
     KEPT_PACKAGES=() && \
     # Deps for healthchecks
-    KEPT_PACKAGES+=(bc) && \
     TEMP_PACKAGES+=(git) && \
     KEPT_PACKAGES+=(jq) && \
     KEPT_PACKAGES+=(net-tools) && \
