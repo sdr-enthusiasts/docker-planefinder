@@ -38,4 +38,9 @@ if ! check_tcp4_connection_established ANY ANY "$(get_ipv4 "$BEASTHOST")" "$BEAS
   EXITCODE=1
 fi
 
+# Check for abnormal service deaths
+if ! check_s6_service_abnormal_death_tally ALL; then
+  EXITCODE=1
+fi
+
 exit $EXITCODE
