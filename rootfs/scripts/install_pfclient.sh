@@ -17,7 +17,7 @@ FILEOUTPUT=$("${FILEBINARY}" -L "${FILEBINARY}")
 # /usr/bin/file: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-i386.so.1, stripped
 # /usr/bin/file: ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=d48e1d621e9b833b5d33ede3b4673535df181fe0, stripped  
 if echo "${FILEOUTPUT}" | grep "Intel 80386" > /dev/null; then
-  PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
+  PFCLIENTURL="http://client.planefinder.net/pfclient_5.0.161_i386.deb"
 fi
 
 # x86-64
@@ -28,7 +28,7 @@ if echo "${FILEOUTPUT}" | grep "x86-64" > /dev/null; then
   dpkg --add-architecture i386
   apt-get update
   apt-get install --no-install-recommends -y libc6:i386
-  PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_i386.deb"
+  PFCLIENTURL="http://client.planefinder.net/pfclient_5.0.161_i386.deb"
 fi
 
 # armel
@@ -40,7 +40,7 @@ if echo "${FILEOUTPUT}" | grep "ARM" > /dev/null; then
   # /usr/bin/file: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-armhf.so.1, stripped  # /usr/bin/file: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=921490a07eade98430e10735d69858e714113c56, stripped
   # /usr/bin/file: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux-armhf.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=921490a07eade98430e10735d69858e714113c56, stripped
   if echo "${FILEOUTPUT}" | grep "armhf" > /dev/null; then
-    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"
+    PFCLIENTURL="http://client.planefinder.net/pfclient_5.0.161_armhf.deb"
   fi
 
   # arm64
@@ -51,7 +51,7 @@ if echo "${FILEOUTPUT}" | grep "ARM" > /dev/null; then
     dpkg --add-architecture armhf
     apt-get update		
     apt-get install --no-install-recommends -y libc6:armhf
-    PFCLIENTURL="http://client.planefinder.net/pfclient_4.1.1_armhf.deb"    
+    PFCLIENTURL="http://client.planefinder.net/pfclient_5.0.161_armhf.deb"    
   fi
 
 fi
