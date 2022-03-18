@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM ghcr.io/sdr-enthusiasts/docker-baseimage:qemu
 
 ENV BEASTPORT=30005 \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2
@@ -8,6 +8,7 @@ COPY rootfs/ /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN set -x && \
+    dpkg --add-architecture armhf && \
     TEMP_PACKAGES=() && \
     KEPT_PACKAGES=() && \
     # Deps for healthchecks
@@ -15,14 +16,11 @@ RUN set -x && \
     KEPT_PACKAGES+=(jq) && \
     KEPT_PACKAGES+=(net-tools) && \
     KEPT_PACKAGES+=(procps) && \
-    # Deps for s6-overlay & pfclient install
-    TEMP_PACKAGES+=(file) && \
-    TEMP_PACKAGES+=(gnupg) && \
     # Deps for pfclient
     KEPT_PACKAGES+=(ca-certificates) && \
-    KEPT_PACKAGES+=(libc6) && \
-    KEPT_PACKAGES+=(lsb-base) && \
-    # Deps for s6-overlay, pfclient install & healthchecks
+    KEPT_PACKAGES+=(libc6:armhf) && \
+    KEPT_PACKAGES+=(lsb-base:armhf) && \
+    # pfclient install & healthchecks
     KEPT_PACKAGES+=(curl) && \
     # Install packages
     apt-get update && \
@@ -31,21 +29,19 @@ RUN set -x && \
         ${TEMP_PACKAGES[@]} \
         && \
     # Install pfclient
-    bash /scripts/install_pfclient.sh && \
-    rm -rf /config/* /var/log/pfclient/* /etc/pfclient-config.json && \
-    # Deploy healthchecks framework
-    git clone \
-      --depth=1 \
-      https://github.com/mikenye/docker-healthchecks-framework.git \
-      /opt/healthchecks-framework \
+    curl \
+      --location \
+      --output "/tmp/pfclient.tar.gz" \
+      "http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz" \
       && \
-    rm -rf \
-      /opt/healthchecks-framework/.git* \
-      /opt/healthchecks-framework/*.md \
-      /opt/healthchecks-framework/tests \
+    # Check md5sum
+    echo "0f1e6b90f292833060020d039b8d2fb1  /tmp/pfclient.tar.gz" > /tmp/pfclient.md5sum && \
+    md5sum --check /tmp/pfclient.md5sum && \
+    # Extract pfclient
+    tar \
+      xvf "/tmp/pfclient.tar.gz" \
+      -C /usr/local/bin/ \
       && \
-    # Deploy s6-overlay
-    curl -s https://raw.githubusercontent.com/mikenye/deploy-s6-overlay/master/deploy-s6-overlay.sh | sh && \
     # Clean up
     apt-get remove -y ${TEMP_PACKAGES[@]} && \
     apt-get autoremove -y && \
@@ -54,8 +50,6 @@ RUN set -x && \
     # Container version
     echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
     grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION
-
-ENTRYPOINT [ "/init" ]
 
 EXPOSE 30053/tcp 30054/tcp
 
