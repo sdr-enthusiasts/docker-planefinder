@@ -1,11 +1,9 @@
-# mikenye/planefinder
+# sdr-enthusiasts/docker-planefinder
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mikenye/docker-planefinder/Deploy%20to%20Docker%20Hub)](https://github.com/mikenye/docker-planefinder/actions?query=workflow%3A%22Deploy+to+Docker+Hub%22)
-[![Docker Pulls](https://img.shields.io/docker/pulls/mikenye/planefinder.svg)](https://hub.docker.com/r/mikenye/planefinder)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/mikenye/planefinder/latest)](https://hub.docker.com/r/mikenye/planefinder)
 [![Discord](https://img.shields.io/discord/734090820684349521)](https://discord.gg/sTf9uYF)
 
-Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [mikenye/readsb-protobuf](https://hub.docker.com/repository/docker/mikenye/readsb-protobuf). Builds and runs on `x86_64`, `386`, `arm64` and `arm32v7` (see below).
+Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [sdr-enthusiasts/docker-readsb-protobuf](https://github.com/sdr-enthusiasts/docker-readsb-protobuf). Builds and runs on `x86_64`, `386`, `arm64` and `arm32v7` (see below).
 
 `pfclient` pulls ModeS/BEAST information from a host or container providing ModeS/BEAST data, and sends data to PlaneFinder.
 
@@ -32,7 +30,7 @@ docker run \
     --name pfclient_temp \
     --entrypoint pfclient \
     -p 30053:30053 \
-    mikenye/planefinder
+    ghcr.io/sdr-enthusiasts/docker-planefinder:latest
 ```
 
 Once the container has started, you should see a message such as:
@@ -62,7 +60,7 @@ docker run \
  -e LAT=YOURLATITUDE \
  -e LONG=YOURLONGITUDE \
  -e SHARECODE=YOURSHARECODE \
- mikenye/planefinder
+ ghcr.io/sdr-enthusiasts/docker-planefinder:latest
 ```
 
 You should obviously replace `YOURBEASTHOST`, `YOURLATITUDE`, `YOURLONGITUDE` and `YOURSHARECODE` with appropriate values.
@@ -80,7 +78,7 @@ docker run \
  -e LAT=-33.33333 \
  -e LONG=111.11111 \
  -e SHARECODE=zg84632abhf231 \
- mikenye/planefinder
+ ghcr.io/sdr-enthusiasts/docker-planefinder:latest
 ```
 
 ## Up-and-Running with Docker Compose
@@ -90,7 +88,7 @@ version: '2.0'
 
 services:
   pfclient:
-    image: mikenye/planefinder:latest
+    image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest
     tty: true
     container_name: pfclient
     restart: always
@@ -103,61 +101,6 @@ services:
       - LONG=111.11111
       - SHARECODE=zg84632abhf231
 ```
-
-## Up-and-Running with Docker Compose, including `mikenye/readsb`
-
-```yaml
-version: '2.0'
-
-networks:
-  adsbnet:
-
-services:
-
-  readsb:
-    image: mikenye/readsb:latest
-    tty: true
-    container_name: readsb
-    restart: always
-    devices:
-      - /dev/bus/usb/001/007:/dev/bus/usb/001/007
-    networks:
-      - adsbnet
-    command:
-      - --dcfilter
-      - --device-type=rtlsdr
-      - --fix
-      - --forward-mlat
-      - --json-location-accuracy=2
-      - --lat=-33.33333
-      - --lon=111.11111
-      - --metric
-      - --mlat
-      - --modeac
-      - --ppm=0
-      - --net
-      - --stats-every=3600
-      - --quiet
-      - --write-json=/var/run/readsb
-
-  pfclient:
-    image: mikenye/planefinder:latest
-    tty: true
-    container_name: pfclient
-    restart: always
-    ports:
-      - 30053:30053
-    environment:
-      - TZ=Australia/Perth
-      - BEASTHOST=readsb
-      - LAT=-33.33333
-      - LONG=111.11111
-      - SHARECODE=zg84632abhf231
-    networks:
-      - adsbnet
-```
-
-For an explanation of the `mikenye/readsb` image's configuration, see that image's readme.
 
 ## Claiming Your Receiver
 
@@ -194,6 +137,6 @@ The following ports are used by this container:
 
 ## Getting Help
 
-You can [log an issue](https://github.com/mikenye/docker-planefinder/issues) on the project's GitHub.
+You can [log an issue](https://github.com/sdr-enthusiasts/docker-planefinder/issues) on the project's GitHub.
 
 I also have a [Discord channel](https://discord.gg/sTf9uYF), feel free to [join](https://discord.gg/sTf9uYF) and converse.
