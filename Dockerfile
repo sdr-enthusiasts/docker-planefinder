@@ -47,11 +47,16 @@ RUN set -x && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /src /tmp/* && \
-    # Container version
-    echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
-    grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION
+    # Document version
+    if /usr/local/bin/pfclient --version > /dev/null 2>&1; \
+        then echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
+        else echo "pfclient $(qemu-arm-static /usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
+        fi \
+        && \
+    grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION && \
+    cat /CONTAINER_VERSION
 
 EXPOSE 30053/tcp 30054/tcp
 
 # Add healthcheck
-HEALTHCHECK --start-period=3600s --interval=600s  CMD /scripts/healthcheck.sh
+HEALTHCHECK --start-period=3600s --interval=600s CMD /scripts/healthcheck.sh
