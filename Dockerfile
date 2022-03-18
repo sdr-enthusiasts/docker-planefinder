@@ -34,7 +34,10 @@ RUN set -x && \
       --output "/tmp/pfclient.tar.gz" \
       "http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz" \
       && \
-    # TODO - check md5sum
+    # Check md5sum
+    echo "0f1e6b90f292833060020d039b8d2fb1  ./pfclient.tar.gz" > /tmp/pfclient.md5sum && \
+    md5sum --check ./pfclient.md5sum && \
+    # Extract pfclient
     tar \
       xvf "/tmp/pfclient.tar.gz" \
       -C /usr/local/bin/ \
@@ -44,8 +47,7 @@ RUN set -x && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /src /tmp/* && \
-    
-    # Container version - TODO
+    # Container version
     echo "pfclient $(pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
     grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION
 
