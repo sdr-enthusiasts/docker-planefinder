@@ -35,8 +35,8 @@ RUN set -x && \
       "http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz" \
       && \
     # Check md5sum
-    echo "0f1e6b90f292833060020d039b8d2fb1  ./pfclient.tar.gz" > /tmp/pfclient.md5sum && \
-    md5sum --check ./pfclient.md5sum && \
+    echo "0f1e6b90f292833060020d039b8d2fb1  /tmp/pfclient.tar.gz" > /tmp/pfclient.md5sum && \
+    md5sum --check /tmp/pfclient.md5sum && \
     # Extract pfclient
     tar \
       xvf "/tmp/pfclient.tar.gz" \
