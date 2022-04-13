@@ -28,7 +28,7 @@ docker run \
     --rm \
     -it \
     --name pfclient_temp \
-    --entrypoint pfclient \
+    --entrypoint /firstrun \
     -p 30053:30053 \
     ghcr.io/sdr-enthusiasts/docker-planefinder:latest
 ```
