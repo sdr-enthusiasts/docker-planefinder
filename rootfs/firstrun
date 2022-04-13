@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/usr/bin/env bash
 #shellcheck shell=bash
 
 # Test pfclient can run natively (without qemu)
