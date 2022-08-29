@@ -28,7 +28,23 @@ RUN set -x && \
         ${KEPT_PACKAGES[@]} \
         ${TEMP_PACKAGES[@]} \
         && \
-    # Install pfclient
+    # Install pfclient for AMD64
+    curl \
+      --location \
+      --output "/tmp/pfclient.tar.gz" \
+      "http://client.planefinder.net/pfclient_5.0.162_amd64.tar.gz" \
+      && \
+    # Check md5sum
+    echo "3bb9734b43e665b16a5a9ef4c43bfed3  /tmp/pfclient.tar.gz" > /tmp/pfclient.md5sum && \
+    md5sum --check /tmp/pfclient.md5sum && \
+    # Extract pfclient
+    tar \
+      xvf "/tmp/pfclient.tar.gz" \
+      -C /usr/local/bin/ \
+      && \
+    mv /usr/local/bin/pfclient /usr/local/bin/pfclient-amd64 && \
+    rm /tmp/pfclient* && \
+    # Install pfclient for ARM
     curl \
       --location \
       --output "/tmp/pfclient.tar.gz" \
@@ -42,6 +58,8 @@ RUN set -x && \
       xvf "/tmp/pfclient.tar.gz" \
       -C /usr/local/bin/ \
       && \
+    mv /usr/local/bin/pfclient /usr/local/bin/pfclient-armhf && \
+    rm /tmp/pfclient* && \
     # Clean up
     apt-get remove -y ${TEMP_PACKAGES[@]} && \
     apt-get autoremove -y && \
@@ -49,8 +67,12 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/* /src /tmp/* && \
     # Document version
     if /usr/local/bin/pfclient --version > /dev/null 2>&1; \
-        then echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
-        else echo "pfclient $(qemu-arm-static /usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
+        then \ 
+          echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
+          ln -s /usr/local/bin/pfclient-armhf /usr/local/bin/pfclient; \
+        else \
+          echo "pfclient $(/usr/local/bin/pfclient-amd64 --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
+          ln -s /usr/local/bin/pfclient-amd64 /usr/local/bin/pfclient; \
         fi \
         && \
     grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION && \
