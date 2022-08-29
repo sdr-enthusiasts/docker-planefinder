@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 #shellcheck shell=bash
 
-# Test pfclient can run natively (without qemu)
-if /usr/local/bin/pfclient --version > /dev/null 2>&1; then 
-  # pfclient can be run natively
-  s6-setuidgid nobody /usr/local/bin/pfclient
-
-else
-  # pfclient needs qemu
-  s6-setuidgid nobody qemu-arm-static /usr/local/bin/pfclient
-
-fi
-
+# pfclient can be run natively
+s6-setuidgid nobody /usr/local/bin/pfclient
