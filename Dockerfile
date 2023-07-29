@@ -1,4 +1,4 @@
-FROM ghcr.io/sdr-enthusiasts/docker-baseimage:qemu-test-pr
+FROM ghcr.io/sdr-enthusiasts/docker-baseimage:qemu
 
 ENV BEASTPORT=30005 \
   S6_BEHAVIOUR_IF_STAGE2_FAILS=2
