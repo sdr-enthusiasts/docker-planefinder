@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/with-contenv bash
 
 # Import healthchecks-framework
 # shellcheck disable=SC1091
@@ -31,7 +31,7 @@ curl \
   > /run/pfclient_json_stats.current
 
 if [[ -e "/run/pfclient_json_stats.previous" ]]; then
-  
+
   master_server_bytes_out_current="$(jq .master_server_bytes_out < /run/pfclient_json_stats.current)"
   master_server_bytes_out_previous="$(jq .master_server_bytes_out < /run/pfclient_json_stats.previous)"
 
