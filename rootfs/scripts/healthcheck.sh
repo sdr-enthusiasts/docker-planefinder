@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 
 # Import healthchecks-framework
 # shellcheck disable=SC1091
