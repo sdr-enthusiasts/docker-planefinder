@@ -2,7 +2,7 @@
 #shellcheck shell=bash
 
 # Test pfclient can run natively (without qemu)
-if /usr/local/bin/pfclient --version > /dev/null 2>&1; then 
+if /usr/local/bin/pfclient --version > /dev/null 2>&1; then
   # pfclient can be run natively
   s6-setuidgid nobody /usr/local/bin/pfclient \
     --connection_type=1 \
@@ -32,4 +32,3 @@ else
     --log_path=/var/log/pfclient \
     2>&1 | mawk -W Interactive '{print "[pfclient_daemon] " $0}'
 fi
-

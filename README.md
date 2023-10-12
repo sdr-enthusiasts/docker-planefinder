@@ -11,9 +11,9 @@ For more information on what `pfclient` is, see here: <https://planefinder.net/s
 
 ## Supported tags and respective Dockerfiles
 
-* `latest` (`master` branch, `Dockerfile`)
-* Version and architecture specific tags available
-* `development` (`dev` branch, `Dockerfile`, not recommended for production)
+- `latest` (`master` branch, `Dockerfile`)
+- Version and architecture specific tags available
+- `development` (`dev` branch, `Dockerfile`, not recommended for production)
 
 ## Obtaining a PlaneFinder Share Code
 
@@ -84,7 +84,7 @@ docker run \
 ## Up-and-Running with Docker Compose
 
 ```yaml
-version: '2.0'
+version: "2.0"
 
 services:
   pfclient:
@@ -115,25 +115,25 @@ Once your container is up and running, you should claim your receiver.
 
 There are a series of available environment variables:
 
-| Environment Variable | Purpose                         | Default |
-| -------------------- | ------------------------------- | ------- |
-| `BEASTHOST`          | Required. IP/Hostname of a Mode-S/BEAST provider (dump1090/readsb) | |
-| `BEASTPORT`          | Optional. TCP port number of Mode-S/BEAST provider (dump1090/readsy) | 30005 |
-| `SHARECODE`            | Required. PlaneFinder Share Code | |
-| `LAT` | Required. Latitude of the antenna | |
-| `LONG` | Required. Longitude of the antenna | |
-| `TZ`                 | Optional. Your local timezone | GMT     |
+| Environment Variable | Purpose                                                              | Default |
+| -------------------- | -------------------------------------------------------------------- | ------- |
+| `BEASTHOST`          | Required. IP/Hostname of a Mode-S/BEAST provider (dump1090/readsb)   |         |
+| `BEASTPORT`          | Optional. TCP port number of Mode-S/BEAST provider (dump1090/readsy) | 30005   |
+| `SHARECODE`          | Required. PlaneFinder Share Code                                     |         |
+| `LAT`                | Required. Latitude of the antenna                                    |         |
+| `LONG`               | Required. Longitude of the antenna                                   |         |
+| `TZ`                 | Optional. Your local timezone                                        | GMT     |
 
 ## Ports
 
 The following ports are used by this container:
 
-* `30053` - `pfclient` web GUI. Suggest mapping this port for the web GUI.
-* `30054` - `pfclient` "echo port". Suggest leaving this port unmapped.
+- `30053` - `pfclient` web GUI. Suggest mapping this port for the web GUI.
+- `30054` - `pfclient` "echo port". Suggest leaving this port unmapped.
 
 ## Logging
 
-* All processes are logged to the container's stdout, and can be viewed with `docker logs [-f] container`.
+- All processes are logged to the container's stdout, and can be viewed with `docker logs [-f] container`.
 
 ## Getting Help
 
