@@ -36,16 +36,16 @@ jobs:
 
       # Set up QEMU for multi-arch builds
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v3.0.0
 
       # Set up buildx for multi platform builds
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3.3.0
 
       # Test container build for all supported platforms (defined above)
       - name: Test Build ${{ matrix.docker-platform }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v5.3.0
         with:
           context: .
           file: ./Dockerfile
