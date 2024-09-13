@@ -1,36 +1,16 @@
 #!/command/with-contenv bash
 #shellcheck shell=bash
 
-# Test pfclient can run natively (without qemu)
-if /usr/local/bin/pfclient --version > /dev/null 2>&1; then
-  # pfclient can be run natively
-  exec s6-setuidgid nobody \
-  s6wrap --quiet --prepend='pfclient_daemon' --args \
-  /usr/local/bin/pfclient \
-    --connection_type=1 \
-    --address="${BEASTHOST}" \
-    --port="${BEASTPORT}" \
-    --data_format=1 \
-    --sharecode="${SHARECODE}" \
-    --lat="${LAT}" \
-    --lon="${LONG}" \
-    --pid_file=/run/pfclient.pid \
-    --config_path=/config/pfclient-config.json \
-    --log_path=/var/log/pfclient
-
-else
-  # pfclient needs qemu
-  exec s6-setuidgid nobody \
-  s6wrap --quiet --prepend='pfclient_daemon' --args \
-  qemu-arm-static /usr/local/bin/pfclient \
-    --connection_type=1 \
-    --address="${BEASTHOST}" \
-    --port="${BEASTPORT}" \
-    --data_format=1 \
-    --sharecode="${SHARECODE}" \
-    --lat="${LAT}" \
-    --lon="${LONG}" \
-    --pid_file=/run/pfclient.pid \
-    --config_path=/config/pfclient-config.json \
-    --log_path=/var/log/pfclient
-fi
+exec s6-setuidgid nobody \
+s6wrap --quiet --prepend='pfclient_daemon' --args \
+/usr/local/bin/pfclient \
+  --connection_type=1 \
+  --address="${BEASTHOST}" \
+  --port="${BEASTPORT}" \
+  --data_format=1 \
+  --sharecode="${SHARECODE}" \
+  --lat="${LAT}" \
+  --lon="${LONG}" \
+  --pid_file=/run/pfclient.pid \
+  --config_path=/config/pfclient-config.json \
+  --log_path=/var/log/pfclient

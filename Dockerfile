@@ -1,4 +1,6 @@
-FROM ghcr.io/sdr-enthusiasts/docker-baseimage:qemu
+FROM ghcr.io/sdr-enthusiasts/docker-baseimage:base
+
+ARG TARGETPLATFORM TARGETOS TARGETARCH
 
 ENV BEASTPORT=30005 \
   S6_BEHAVIOUR_IF_STAGE2_FAILS=2
@@ -9,18 +11,24 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3008,SC2086,SC2039,SC2068
 RUN set -x && \
-  dpkg --add-architecture armhf && \
   TEMP_PACKAGES=() && \
   KEPT_PACKAGES=() && \
   # Deps for healthchecks
-  TEMP_PACKAGES+=(git) && \
   KEPT_PACKAGES+=(jq) && \
   KEPT_PACKAGES+=(net-tools) && \
   KEPT_PACKAGES+=(procps) && \
   # Deps for pfclient
   KEPT_PACKAGES+=(ca-certificates) && \
-  KEPT_PACKAGES+=(libc6:armhf) && \
-  #KEPT_PACKAGES+=(lsb-base:armhf) && \
+  if [[ "${TARGETARCH}" == "arm64" ]]; then \
+    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.1.440_arm64.tar.gz"; \
+    DOWNLOAD_MD5SUM=fcba2b587d27442dddf5f18575222ca0; \
+  elif [[ "${TARGETARCH}" == "amd64" ]]; then \
+    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.0.162_amd64.tar.gz"; \
+    DOWNLOAD_MD5SUM=3bb9734b43e665b16a5a9ef4c43bfed3; \
+  else \
+    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz"; \
+    DOWNLOAD_MD5SUM=0f1e6b90f292833060020d039b8d2fb1; \
+  fi && \
   # pfclient install & healthchecks
   KEPT_PACKAGES+=(curl) && \
   # Install packages
@@ -33,10 +41,10 @@ RUN set -x && \
   curl \
   --location \
   --output "/tmp/pfclient.tar.gz" \
-  "http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz" \
+  "${DOWNLOAD_URL}" \
   && \
   # Check md5sum
-  echo "0f1e6b90f292833060020d039b8d2fb1  /tmp/pfclient.tar.gz" > /tmp/pfclient.md5sum && \
+  echo "${DOWNLOAD_MD5SUM}  /tmp/pfclient.tar.gz" > /tmp/pfclient.md5sum && \
   md5sum --check /tmp/pfclient.md5sum && \
   # Extract pfclient
   tar \
@@ -45,15 +53,11 @@ RUN set -x && \
   && \
   # Clean up
   apt-get remove -y ${TEMP_PACKAGES[@]} && \
-  apt-get autoremove -y && \
+  apt-get autoremove -q -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -y && \
   apt-get clean -y && \
-  rm -rf /var/lib/apt/lists/* /src /tmp/* && \
+  rm -rf /src /tmp/* /var/lib/apt/lists/* /git /var/cache/* && \
   # Document version
-  if /usr/local/bin/pfclient --version > /dev/null 2>&1; \
-  then echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
-  else echo "pfclient $(qemu-arm-static /usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION; \
-  fi \
-  && \
+  echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
   grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION && \
   cat /CONTAINER_VERSION
 
