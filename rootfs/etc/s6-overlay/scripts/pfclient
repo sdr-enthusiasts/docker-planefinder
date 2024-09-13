@@ -2,7 +2,7 @@
 #shellcheck shell=bash
 
 exec s6-setuidgid nobody \
-s6wrap --quiet --prepend='pfclient_daemon' --args \
+s6wrap --ignore=stdout --quiet --prepend='pfclient_daemon' --args \
 /usr/local/bin/pfclient \
   --connection_type=1 \
   --address="${BEASTHOST}" \
