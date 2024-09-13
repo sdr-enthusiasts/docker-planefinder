@@ -1,5 +1,8 @@
 #!/command/with-contenv bash
 #shellcheck shell=bash
 
-sleep 5
-tail -c 100k -F /var/log/pfclient/*.log 2> >(grep -v truncated >&2)
+while ! pgrep pfclient &>/dev/null; do
+    sleep 0.5
+done
+exec s6wrap --timestamps --quiet --prepend='pfclient_log' --args \
+    tail -c 100k -F /var/log/pfclient/*.log

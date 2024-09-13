@@ -7,7 +7,6 @@ if /usr/local/bin/pfclient --version > /dev/null 2>&1; then
   s6-setuidgid nobody /usr/local/bin/pfclient
 
 else
-  # pfclient needs qemu
-  s6-setuidgid nobody qemu-arm-static /usr/local/bin/pfclient
-
+  # pfclient isn't working
+  echo "ERROR, pfclient binary not working"
 fi
