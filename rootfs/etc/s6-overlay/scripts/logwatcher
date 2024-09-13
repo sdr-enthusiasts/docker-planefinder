@@ -2,4 +2,4 @@
 #shellcheck shell=bash
 
 sleep 5
-tail -c 100k -F /var/log/pfclient/*.log 2> >(grep -v truncated >&2)
+exec tail -c 100k -F /var/log/pfclient/*.log
