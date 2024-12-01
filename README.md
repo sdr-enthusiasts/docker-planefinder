@@ -99,7 +99,6 @@ version: "2.0"
 services:
   pfclient:
     image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest
-    tty: true
     container_name: pfclient
     restart: always
     ports:
