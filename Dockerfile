@@ -20,14 +20,14 @@ RUN set -x && \
   # Deps for pfclient
   KEPT_PACKAGES+=(ca-certificates) && \
   if [[ "${TARGETARCH}" == "arm64" ]]; then \
-    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.1.440_arm64.tar.gz"; \
-    DOWNLOAD_MD5SUM=fcba2b587d27442dddf5f18575222ca0; \
+    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.2_arm64.tar.gz"; \
+    DOWNLOAD_MD5SUM=4de73d381368307543d928387e308c11; \
   elif [[ "${TARGETARCH}" == "amd64" ]]; then \
     DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.0.162_amd64.tar.gz"; \
     DOWNLOAD_MD5SUM=3bb9734b43e665b16a5a9ef4c43bfed3; \
   else \
-    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.0.161_armhf.tar.gz"; \
-    DOWNLOAD_MD5SUM=0f1e6b90f292833060020d039b8d2fb1; \
+    DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.2_armhf.tar.gz"; \
+    DOWNLOAD_MD5SUM=088f06625c34906f5dc9361d914be87eb; \
   fi && \
   # pfclient install & healthchecks
   KEPT_PACKAGES+=(curl) && \
