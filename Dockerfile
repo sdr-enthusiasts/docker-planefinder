@@ -27,7 +27,7 @@ RUN set -x && \
     DOWNLOAD_MD5SUM=3bb9734b43e665b16a5a9ef4c43bfed3; \
   else \
     DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.2_armhf.tar.gz"; \
-    DOWNLOAD_MD5SUM=088f06625c34906f5dc9361d914be87eb; \
+    DOWNLOAD_MD5SUM=88f06625c34906f5dc9361d914be87eb; \
   fi && \
   # pfclient install & healthchecks
   KEPT_PACKAGES+=(curl) && \
