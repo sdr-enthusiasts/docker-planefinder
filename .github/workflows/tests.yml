@@ -44,7 +44,7 @@ jobs:
 
       # Test container build for all supported platforms (defined above)
       - name: Test Build ${{ matrix.docker-platform }}
-        uses: docker/build-push-action@v6.17.0
+        uses: docker/build-push-action@v6.18.0
         with:
           context: .
           file: ./Dockerfile
