@@ -40,7 +40,7 @@ jobs:
       # Set up buildx for multi platform builds
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v3.10.0
+        uses: docker/setup-buildx-action@v3.11.1
 
       # Test container build for all supported platforms (defined above)
       - name: Test Build ${{ matrix.docker-platform }}
