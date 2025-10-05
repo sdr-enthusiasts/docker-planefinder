@@ -23,8 +23,8 @@ RUN set -x && \
   DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.29_arm64.tar.gz"; \
   DOWNLOAD_MD5SUM=d8b5e7cf6d6d2fbde74dc560b8666f4e; \
   elif [[ "${TARGETARCH}" == "amd64" ]]; then \
-  DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.29_amd64.tar.gz"; \
-  DOWNLOAD_MD5SUM=b655a6479625d6fb08763abc11fc76da; \
+  DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.0.162_amd64.tar.gz"; \
+  DOWNLOAD_MD5SUM=58579fe2fef6a79b49a530163bdc5360; \
   else \
   DOWNLOAD_URL="http://client.planefinder.net/pfclient_5.3.29_armhf.tar.gz"; \
   DOWNLOAD_MD5SUM=0949c252cb24d423f53b0203f47d5389; \
@@ -58,7 +58,8 @@ RUN set -x && \
   apt-get autoremove -q -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -y && \
   apt-get clean -y && \
   rm -rf /src /tmp/* /var/lib/apt/lists/* /git /var/cache/* && \
-  # Document version
+  # Document version and make sure the binary can be loaded with the linked libraries
+  pfclient --version && \
   echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
   grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION && \
   cat /CONTAINER_VERSION
