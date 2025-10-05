@@ -58,7 +58,8 @@ RUN set -x && \
   apt-get autoremove -q -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 -y && \
   apt-get clean -y && \
   rm -rf /src /tmp/* /var/lib/apt/lists/* /git /var/cache/* && \
-  # Document version
+  # Document version and make sure the binary can be loaded with the linked libraries
+  pfclient --version && \
   echo "pfclient $(/usr/local/bin/pfclient --version | head -1 | rev | cut -d " " -f 1 | rev)" >> /VERSION && \
   grep 'pfclient' /VERSION | cut -d ' ' -f2- > /CONTAINER_VERSION && \
   cat /CONTAINER_VERSION
