@@ -1,6 +1,26 @@
 #!/command/with-contenv bash
 #shellcheck shell=bash
 
+source /scripts/common
+
+if chk_enabled "${RADAR_STICK}"; then
+    if [[ -z "${RADAR_STICK_DEVICE}" ]]; then
+        RADAR_STICK_DEVICE=/dev/ttyUSB0 # default
+    fi
+    exec s6-setuidgid nobody \
+        s6wrap --ignore=stdout --quiet --prepend='pfclient_daemon' --args \
+        /usr/local/bin/pfclient \
+        --connection_type=2 \
+        --address="${RADAR_STICK_DEVICE}" \
+        --data_format=10 \
+        --baudrate=3000000 \
+        --sharecode="${SHARECODE}" \
+        --lat="${LAT}" \
+        --lon="${LONG}" \
+        --pid_file=/run/pfclient.pid \
+        --log_path=/var/log/pfclient
+fi
+
 exec s6-setuidgid nobody \
 s6wrap --ignore=stdout --quiet --prepend='pfclient_daemon' --args \
 /usr/local/bin/pfclient \
