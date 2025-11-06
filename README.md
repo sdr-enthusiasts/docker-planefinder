@@ -135,7 +135,6 @@ There are a series of available environment variables:
 | `RADAR_STICK`        | Use planefinder radar stick                                          | false   |
 | `RADAR_STICK_DEVICE` | planefinder radar stick device address                               | /dev/ttyUSB0 |
 
-
 ## Ports
 
 The following ports are used by this container:
