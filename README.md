@@ -132,6 +132,9 @@ There are a series of available environment variables:
 | `LAT`                | Required. Latitude of the antenna                                    |         |
 | `LONG`               | Required. Longitude of the antenna                                   |         |
 | `TZ`                 | Optional. Your local timezone                                        | GMT     |
+| `RADAR_STICK`        | Use planefinder radar stick                                          | false   |
+| `RADAR_STICK_DEVICE` | planefinder radar stick device address                               | /dev/ttyUSB0 |
+
 
 ## Ports
 
