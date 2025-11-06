@@ -1,6 +1,7 @@
 #!/command/with-contenv bash
 #shellcheck shell=bash
 
+# shellcheck disable=SC1091
 source /scripts/common
 
 if chk_enabled "${RADAR_STICK}"; then
