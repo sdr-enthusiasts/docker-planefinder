@@ -94,8 +94,6 @@ docker run \
 ## Up-and-Running with Docker Compose
 
 ```yaml
-version: "2.0"
-
 services:
   pfclient:
     image: ghcr.io/sdr-enthusiasts/docker-planefinder:latest
@@ -141,6 +139,21 @@ The following ports are used by this container:
 
 - `30053` - `pfclient` web GUI. Suggest mapping this port for the web GUI.
 - `30054` - `pfclient` "echo port". Suggest leaving this port unmapped.
+- `30055` - `pfclient` beast output when using radar stick
+
+## Plane Finder Radar Stick
+
+To use the radar stick, add this to the compose yml:
+
+```yaml
+    device_cgroup_rules:
+      # serial devices
+      - 'c 188:* rwm'
+    volumes:
+      - /dev:/dev:ro
+```
+
+Also add `RADAR_STICK=true` to the environment variables in the yml.
 
 ## Logging
 
