@@ -9,16 +9,6 @@ Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`.
 
 For more information on what `pfclient` is, see here: <https://planefinder.net/sharing/client>.
 
-## IMPORTANT NOTE FOR USERS ON PI5/libpthread.so.0
-
-Planefinder client `5.0.161` will see the following error on startup:
-
-```bash
-error while loading shared libraries: libpthread.so.0: ELF load command address/offset not page
-```
-
-This, at least at the moment, is not something we can fix and will require the upstream developers to fix. Alternative, in [this issue](https://github.com/sdr-enthusiasts/docker-planefinder/issues/34) you can find a work around which involves switching to a different kernel.
-
 ## Supported tags and respective Dockerfiles
 
 - `latest` (`master` branch, `Dockerfile`)
