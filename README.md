@@ -3,7 +3,7 @@
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/mikenye/planefinder/latest)](https://hub.docker.com/r/mikenye/planefinder)
 [![Discord](https://img.shields.io/discord/734090820684349521)](https://discord.gg/sTf9uYF)
 
-Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [sdr-enthusiasts/docker-readsb-protobuf](https://github.com/sdr-enthusiasts/docker-readsb-protobuf). Builds and runs on `x86_64`, `386`, `arm64` and `arm32v7` (see below).
+Docker container running [PlaneFinder's](https://planefinder.net/)'s `pfclient`. Designed to work in tandem with [sdr-enthusiasts/docker-adsb-ultrafeeder](https://github.com/sdr-enthusiasts/docker-adsb-ultrafeeder). Builds and runs on `x86_64`, `arm64` and `arm32v7` (see below).
 
 `pfclient` pulls ModeS/BEAST information from a host or container providing ModeS/BEAST data, and sends data to PlaneFinder.
 
@@ -11,9 +11,8 @@ For more information on what `pfclient` is, see here: <https://planefinder.net/s
 
 ## Supported tags and respective Dockerfiles
 
-- `latest` (`master` branch, `Dockerfile`)
-- Version and architecture specific tags available
-- `development` (`dev` branch, `Dockerfile`, not recommended for production)
+- `latest` (`main` branch, `Dockerfile`)
+- Version specific tags available, see <https://github.com/sdr-enthusiasts/docker-planefinder/pkgs/container/docker-planefinder>
 
 ## Obtaining a PlaneFinder Share Code
 
@@ -48,7 +47,7 @@ docker run \
  --name pfclient \
  -p 30053:30053 \
  -e TZ="Australia/Perth" \
- -e BEASTHOST=readsb \
+ -e BEASTHOST=ultrafeeder \
  -e LAT=-33.33333 \
  -e LONG=111.11111 \
  -e SHARECODE=zg84632abhf231 \
