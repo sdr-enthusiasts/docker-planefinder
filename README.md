@@ -27,33 +27,7 @@ This, at least at the moment, is not something we can fix and will require the u
 
 ## Obtaining a PlaneFinder Share Code
 
-First-time users should obtain a PlaneFinder Share Code.
-
-In order to obtain a PlaneFinder Share Code, we will start a temporary container running `pfclient`, which will run through a configuration wizard and generate a share code.
-
-To do this, run the command:
-
-```shell
-docker run \
-    --rm \
-    -it \
-    --name pfclient_temp \
-    --entrypoint /firstrun \
-    -p 30053:30053 \
-    ghcr.io/sdr-enthusiasts/docker-planefinder:latest
-```
-
-Once the container has started, you should see a message such as:
-
-```text
-2020-04-11 06:45:25.823307 [-] We were unable to locate a configuration file and have entered configuration mode by default. Please visit: http://172.22.7.12:30053 to complete configuration.
-```
-
-At this point, open a web browser and go to <http://dockerhost:30053>. Replace `dockerhost` with the IP address of your host running Docker. You won't be able to use the URL given in the log output, as the IP address given will be the private IP of the docker container.
-
-In your browser, go through the configuration wizard. When finished, you'll be given a PlaneFinder Share Code. Save this in safe place.
-
-You can now kill the container by pressing `CTRL-C`.
+First-time users should obtain a PlaneFinder Share Code by visiting this page: <https://planefinder.net/sharing/create-sharecode>
 
 If you're not a first time user and are migrating from another installation, you can retrieve your sharing key by logging into your planefinder.net account, and going to "Your Receivers".
 
