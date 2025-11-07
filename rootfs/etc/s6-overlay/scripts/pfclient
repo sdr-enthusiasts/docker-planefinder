@@ -8,7 +8,8 @@ if chk_enabled "${RADAR_STICK}"; then
     if [[ -z "${RADAR_STICK_DEVICE}" ]]; then
         RADAR_STICK_DEVICE=/dev/ttyUSB0 # default
     fi
-    exec s6-setuidgid nobody \
+    # can't run as nobody when trying to access serial device
+    exec \
         s6wrap --ignore=stdout --quiet --prepend='pfclient_daemon' --args \
         /usr/local/bin/pfclient \
         --connection_type=2 \
