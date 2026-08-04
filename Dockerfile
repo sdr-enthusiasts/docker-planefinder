@@ -67,4 +67,4 @@ RUN set -x && \
 EXPOSE 30053/tcp 30054/tcp
 
 # Add healthcheck
-HEALTHCHECK --start-period=3600s --interval=600s CMD /scripts/healthcheck.sh
+HEALTHCHECK --start-period=3600s --interval=600s CMD ["/scripts/healthcheck.sh"]
