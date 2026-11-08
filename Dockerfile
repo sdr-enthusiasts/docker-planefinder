@@ -40,6 +40,8 @@ RUN set -x && \
   # Install pfclient
   curl \
   --location \
+  --fail \
+  --retry 3 \
   --output "/tmp/pfclient.tar.gz" \
   "${DOWNLOAD_URL}" \
   && \
